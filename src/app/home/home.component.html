@@ -1,0 +1,67 @@
+<div class="container-fluid">
+  <div class="jumbotron text-center">
+    <h1>
+      <img class="logo" src="assets/app-logo.png" alt="angular logo" />
+      <span translate>APP_TITLE !</span>
+    </h1>
+    <div class="container">
+      <div class="card col-md-12 m-3 mx-auto">
+        <div class="card-body">
+          <form (ngSubmit)="filterData($event)" [formGroup]="filterForm" novalidate>
+            <div class="form-row align-items-center">
+              <div class="col-auto my-1">
+                <label class="sr-only" for="categories">Categories</label>
+                <select class="form-control mr-sm-2" formControlName="categories" id="categories">
+                  <option value="">Select Categories</option>
+                  <option value={{item.strCategory}} *ngFor="let item of categoryList">{{item.strCategory}}</option>
+                </select>
+              </div>
+              <div class="col-auto my-1">
+                <label class="sr-only" for="glasses">Glasses</label>
+                <select class="form-control mr-sm-2" formControlName="glasses" id="glasses">
+                  <option value="">Select Glasses</option>
+                  <option value={{item.strGlass}} *ngFor="let item of glassesList">{{item.strGlass}}</option>
+                </select>
+              </div>
+              <div class="col-auto my-1">
+                <label class="sr-only" for="ingredients">Ingredients</label>
+                <select class="form-control mr-sm-2" formControlName="ingredients" id="ingredients">
+                  <option value="">Select Ingredients</option>
+                  <option value={{item.strIngredient1}} *ngFor="let item of ingredientsList">{{item.strIngredient1}}
+                  </option>
+                </select>
+              </div>
+              <div class="col-auto my-1">
+                <label class="sr-only" for="alcoholic">Alcoholic</label>
+                <select class="form-control mr-sm-2" formControlName="alcoholic" id="alcoholic">
+                  <option value="">Select Alcoholic</option>
+                  <option value={{item.strAlcoholic}} *ngFor="let item of alcoholicList">{{item.strAlcoholic}}</option>
+                </select>
+              </div>
+              <div class="col-auto my-1">
+                <button class="btn btn-primary w-100" type="submit" [disabled]="filterForm.invalid || isLoading">
+                  <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+                  <span translate>Filter</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <!-- <q [hidden]="isLoading">{{ quote | json }}</q> -->
+    <div class="card-columns">
+      <div class="card" *ngFor="let item of quote">
+        <img class="card-img-top" src={{item.strDrinkThumb}} alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{item.strDrink}}</h5>
+          <h6 class="card-title">{{item.strGlass}}</h6>
+          <h6 class="card-title"><strong>Ingredients</strong></h6>
+          <p *ngFor="let item of item.ingredientsArray">{{item}}</p>
+          <p class="card-text">{{item.strInstructions}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
